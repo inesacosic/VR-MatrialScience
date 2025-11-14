@@ -1,0 +1,3 @@
+[submodule "STT/external/whisper.cpp"]
+	path = STT/external/whisper.cpp
+	url = https://github.com/ggerganov/whisper.cpp

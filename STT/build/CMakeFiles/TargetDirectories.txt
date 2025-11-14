@@ -1,0 +1,3 @@
+C:/PSU/Senior Design/AI Model/VR-MatrialScience/STT/build/CMakeFiles/stt.dir
+C:/PSU/Senior Design/AI Model/VR-MatrialScience/STT/build/CMakeFiles/ALL_BUILD.dir
+C:/PSU/Senior Design/AI Model/VR-MatrialScience/STT/build/CMakeFiles/ZERO_CHECK.dir

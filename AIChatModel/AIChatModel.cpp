@@ -1,22 +1,39 @@
 #include "ollama.hpp"
+#include "RAG.hpp"
+#include "json.hpp"
+#include "AIChatModel.h"
+
 #include <iostream>
 #include <string.h>
 #include <vector>
+#include <fstream>
+#include <filesystem>
+
 using namespace std;
+using namespace ollama::RAG;
+using json = nlohmann::json;
 
 
-class AIChatModel{
-    private:
-        string model_name = "llama3.2:3b"; // ollama model we are using is llama3.2:3b
-        ollama::messages chat_history; // initializes a vector where we will push all messages to build context
+AIChatModel::AIChatModel(string file_name){
 
-    public:
-        string generateResponse(string input);
-        void printChatHistory();
+    fstream f(file_name);
+    if (!f.is_open()) {
+    cerr << "Error: Could not open " << file_name << endl;
+    exit(1);
+    }
+    json data = json::parse(f);
 
-};
+    this -> model_name = data["model"];
+    this -> embedding_model_name = data["embed_model"];
 
-
+    // for every initial message in the json file, add it to the chat history
+    for (const auto& message : data["messages"]) {
+        string role = message["role"];
+        string content = message["content"];
+        ollama::message msg(role, content);
+        this -> chat_history.push_back(msg);
+    }
+}
 
 /*
 # generateResponse(string input)
@@ -50,6 +67,31 @@ string AIChatModel::generateResponse(string input){
     return ollama_reply;
 }
 
+void AIChatModel::fetchMaterialScienceContent(string input){
+
+    RAG_loadDocument_ByLine(
+        RAG_DATABASE, 
+        embedding_model_name, 
+        "C:\\Users\\Inesa Cosic\\OneDrive - The Pennsylvania State University\\VR-AI-Project\\VR-MatrialScience-1\\context.txt"
+    );
+
+    cout << "Loaded " << RAG_DATABASE.size() << " entries." << endl;
+
+    auto retrieved_knowledge = RAG_retrieve(RAG_DATABASE, embedding_model_name, input, 1); // 1 = fetchCount
+
+    string instruction_prompt = "You are a helpful chat bot that gives knowledge about material science.\nKnowledge:\n";
+
+    for(const auto& [chunk, _] : retrieved_knowledge){
+        instruction_prompt += "-" + chunk + "\n";
+    }
+
+    cout << instruction_prompt << endl;
+
+    ollama:: message system_message("system", instruction_prompt);
+    chat_history.push_back(system_message);
+}
+
+
 
 
 /* printChatHistory()
@@ -70,10 +112,19 @@ void AIChatModel::printChatHistory(){
 
 }
 
+
 int main(){
 
-	AIChatModel ai;
-    string input = "What is material science?";
+    
+    // always give absolute path to the json file
+	AIChatModel ai = AIChatModel(
+        "C:\\Users\\Inesa Cosic\\OneDrive - The Pennsylvania State University\\VR-AI-Project\\VR-MatrialScience-1\\AIChatModel\\chat_template.json"
+    );
+
+    string input;
+    getline (cin, input);
+
+    ai.fetchMaterialScienceContent(input);
 
     string response = ai.generateResponse(input);
 
@@ -82,3 +133,7 @@ int main(){
 	return 0;
 
 }
+
+
+
+

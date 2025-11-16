@@ -1,0 +1,16 @@
+{
+    // This is the launch.json file which defines how the program is run/debugged
+    // the cwd (current working directory) is set to the root project folder
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Run C++ Program",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/AIChatModel.exe",
+            "cwd": "${workspaceFolder}",
+            "args": []
+        }
+
+    ]
+}

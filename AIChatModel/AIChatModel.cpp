@@ -113,26 +113,26 @@ void AIChatModel::printChatHistory(){
 }
 
 
-int main(){
+// int main(){
 
     
-    // always give absolute path to the json file
-	AIChatModel ai = AIChatModel(
-        "C:\\Users\\Inesa Cosic\\OneDrive - The Pennsylvania State University\\VR-AI-Project\\VR-MatrialScience-1\\AIChatModel\\chat_template.json"
-    );
+//     // always give absolute path to the json file
+// 	AIChatModel ai = AIChatModel(
+//         "C:\\Users\\Inesa Cosic\\OneDrive - The Pennsylvania State University\\VR-AI-Project\\VR-MatrialScience-1\\AIChatModel\\chat_template.json"
+//     );
 
-    string input;
-    getline (cin, input);
+//     string input;
+//     getline (cin, input);
 
-    ai.fetchMaterialScienceContent(input);
+//     ai.fetchMaterialScienceContent(input);
 
-    string response = ai.generateResponse(input);
+//     string response = ai.generateResponse(input);
 
-    cout << "Model's response: " << response << endl;
+//     cout << "Model's response: " << response << endl;
 
-	return 0;
+// 	return 0;
 
-}
+// }
 
 
 

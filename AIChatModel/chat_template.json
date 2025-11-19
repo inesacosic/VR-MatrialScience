@@ -1,6 +1,10 @@
 {
     "model": "llama3.2:3b",
     "embed_model": "nomic-embed-text:latest",
+    "content_files": [
+        "C:\\Users\\Inesa Cosic\\OneDrive - The Pennsylvania State University\\VR-AI-Project\\VR-MatrialScience-1\\context.txt",
+        "C:\\Users\\Inesa Cosic\\OneDrive - The Pennsylvania State University\\VR-AI-Project\\VR-MatrialScience-1\\context_2.txt"
+    ],
     "options": {
         "temperature": 0,
         "max_tokens": 100

@@ -1,0 +1,3 @@
+Yield strength for different steel types can ranges from as low as 200 MPa (30,000 psi) for mild steel to over 2000 MPa (290,000 psi) for high-strength alloy steels.
+
+Steel properties vary based on composition and processing. Different formulations and manufacturing methods produce steels with a spectrum of characteristics, including yield strength.

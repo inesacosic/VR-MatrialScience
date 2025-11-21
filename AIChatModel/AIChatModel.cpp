@@ -7,7 +7,7 @@
 #include <string.h>
 #include <vector>
 #include <fstream>
-#include <filesystem>
+#include <regex>
 
 using namespace std;
 using namespace ollama::RAG;
@@ -28,7 +28,7 @@ using json = nlohmann::json;
 #   N/A - constructor
 #
 */
-AIChatModel::AIChatModel(string file_name){
+AIChatModel::AIChatModel(string file_name, unordered_map<string, string> params){
 
     fstream f(file_name);
 
@@ -47,7 +47,11 @@ AIChatModel::AIChatModel(string file_name){
     for (const auto& message : data["messages"]) {
         string role = message["role"];
         string content = message["content"];
-        ollama::message msg(role, content);
+
+        // since we are already looping througt the messages, insert the params 
+        string content_with_params = insertParams(content, params);
+
+        ollama::message msg(role, content_with_params);
         this -> chat_history.push_back(msg);
     }
 
@@ -153,6 +157,76 @@ void AIChatModel::embedContent(){
 }
 
 
+/* insertParams(string content, unordered_map<string, string> params)
+#
+# This function iterates through a string to find patterns matching {{key}} and replaces them
+# with the corresponding value from the params unordered_map. For example, if the content string
+# is "The girl like {{object}}" and the params map contains the pair {"object", "apples"}, the returned
+# string will be: "The girl likes apples".
+#
+# Parameters:
+#   1. content -> a string value which may contain patterns to be replaced
+#   2. params -> an unordered_map<string, string> containing key-value pairs for replacement
+#
+# Return Type:
+#   string -> returns the modified string with parameters inserted
+#
+*/
+string AIChatModel::insertParams(string content, unordered_map<string, string> params) {
+
+    // the pattern we want to match in the JSON file template
+    // eg. {{material}}, {{parameter}}
+    regex pattern("\\{\\{(.*?)\\}\\}"); 
+
+    string modified_content = content;
+
+    sregex_iterator it(modified_content.begin(), modified_content.end(), pattern); // iterator to find all matches
+    sregex_iterator end; // default constructor creates end iterator, the iterators version of "null"
+
+    vector<string> matches;
+
+    // while "it" doesn't point to nothing (end), add the matches to the vector
+    while (it != end){
+        matches.push_back((*it).str(1)); // str(1) grabs the content inside the parenthesis, i.e. "material" from "{{material}}"
+        it++;
+    }
+
+    // if match exists as a key in params, replace it in the content string
+    for(const string& match: matches){
+        if (params.find(match) != params.end()){
+            modified_content = regex_replace(
+                modified_content,
+                regex("\\{\\{" + match + "\\}\\}"),
+                params[match]
+            );
+        }
+    }
+
+    return modified_content;
+
+}
+
+
+////////////////////// getters for testing //////////////////////////////////
+
+string AIChatModel::getModelName(){
+    return this -> model_name;
+}
+
+string AIChatModel::getEmbeddingModelName(){
+    return this -> embedding_model_name;
+}
+
+vector<string> AIChatModel::getContentFiles(){
+    return this -> content_files;
+}
+
+ollama::messages AIChatModel::getChatHistory(){
+    return this -> chat_history;
+}
+
+//////////////////////////////////////////////////////////////////////////////
+
 /* printChatHistory()
 #
 # This function prints the AIChatModel's chat_history
@@ -175,30 +249,35 @@ void AIChatModel::printChatHistory(){
 }
 
 
-int main(){
+// int main(){
 
-    
-    // always give absolute path to the json file
-	AIChatModel ai = AIChatModel(
-        "C:\\Users\\Inesa Cosic\\OneDrive - The Pennsylvania State University\\VR-AI-Project\\VR-MatrialScience-1\\AIChatModel\\chat_template.json"
-    );
+//     unordered_map<string, string> params = {
+//         {"material", "steel"},
+//         {"parameter", "200 MPa"}
+//     }; 
+
+//     // always give absolute path to the json file
+// 	AIChatModel ai = AIChatModel(
+//         "C:\\Users\\Inesa Cosic\\OneDrive - The Pennsylvania State University\\VR-AI-Project\\VR-MatrialScience-1\\AIChatModel\\chat_template.json",
+//         params
+//     );
 
 
-    string input;
-    getline (cin, input);
+//     string input;
+//     getline (cin, input);
 
-    while (input != "exit"){
-        string response = ai.generateResponse(input);
-        cout << "Model's response: " << response << endl;
-        getline (cin, input);
-    }
+//     while (input != "exit"){
+//         string response = ai.generateResponse(input);
+//         cout << "Model's response: " << response << endl;
+//         getline (cin, input);
+//     }
 
-    ai.printChatHistory();
+//     ai.printChatHistory();
    
 
-	return 0;
+// 	return 0;
 
-}
+// }
 
 
 

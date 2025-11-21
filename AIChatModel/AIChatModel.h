@@ -15,14 +15,21 @@ class AIChatModel{
         ollama::messages chat_history; // initializes a "vector" where we will push all messages to build context
 
         // methods
-        void fetchMaterialScienceContent(string);
         void embedContent();
 
     public:
         // methods
-        AIChatModel(string);
-        string generateResponse(string);
+        AIChatModel(string, unordered_map<string, string>); // the unordered_map holds the values such as force amount and material type
+        string generateResponse(string); 
         void printChatHistory();
+        void fetchMaterialScienceContent(string);
+        string insertParams(string, unordered_map<string, string>);
+
+        // getters
+        string getModelName();
+        string getEmbeddingModelName();
+        vector<string> getContentFiles();
+        ollama::messages getChatHistory();
         
 
 };

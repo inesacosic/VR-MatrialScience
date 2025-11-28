@@ -5,13 +5,10 @@
         "C:\\Users\\Inesa Cosic\\OneDrive - The Pennsylvania State University\\VR-AI-Project\\VR-MatrialScience-1\\context.txt",
         "C:\\Users\\Inesa Cosic\\OneDrive - The Pennsylvania State University\\VR-AI-Project\\VR-MatrialScience-1\\context_2.txt"
     ],
-    "options": {
-        "temperature": 0,
-        "max_tokens": 100
-    },
     "messages": [
         {"role": "system", "content": "You will act as an informant on material science"},
         {"role": "system", "content": "Give the user a short and concise answer to their question."},
+        {"role": "system", "content": "If the user asks about something that is not related or loosely related to material science, tell the user that that you can only answer questions directly related to material science. Do not answer questions that are not related to material science"},
         {"role": "system", "content": "The student is currently looking at {{material}} under {{parameter}} force in a VR environment."}
     ]
 }

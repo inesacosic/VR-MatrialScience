@@ -84,7 +84,7 @@ string NLPModule::speechToText(){
 
     // Load Vosk model
     vosk_set_log_level(0);
-    VoskModel* model = vosk_model_new("C:\\Users\\Inesa Cosic\\OneDrive - The Pennsylvania State University\\VR-AI-Project\\build\\Debug\\models\\vosk-model-small-en-us-0.15");
+    VoskModel* model = vosk_model_new("C:\\Users\\Inesa Cosic\\OneDrive - The Pennsylvania State University\\VR-AI-Project\\VR-MatrialScience-1\\build\\Debug\\models\\vosk-model-small-en-us-0.15");
     if (!model) {
         std::cerr << "ERROR: Failed to load model!\n";
         voice->Release();

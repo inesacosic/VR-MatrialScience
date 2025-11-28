@@ -249,35 +249,35 @@ void AIChatModel::printChatHistory(){
 }
 
 
-int main(){
+// int main(){
 
-    unordered_map<string, string> params = {
-        {"material", "steel"},
-        {"parameter", "200 MPa"}
-    }; 
+//     unordered_map<string, string> params = {
+//         {"material", "steel"},
+//         {"parameter", "200 MPa"}
+//     }; 
 
-    // always give absolute path to the json file
-	AIChatModel ai = AIChatModel(
-        "C:\\Users\\Inesa Cosic\\OneDrive - The Pennsylvania State University\\VR-AI-Project\\VR-MatrialScience-1\\AIChatModel\\chat_template.json",
-        params
-    );
+//     // always give absolute path to the json file
+// 	AIChatModel ai = AIChatModel(
+//         "C:\\Users\\Inesa Cosic\\OneDrive - The Pennsylvania State University\\VR-AI-Project\\VR-MatrialScience-1\\AIChatModel\\chat_template.json",
+//         params
+//     );
 
 
-    string input;
-    getline (cin, input);
+//     string input;
+//     getline (cin, input);
 
-    while (input != "exit"){
-        string response = ai.generateResponse(input);
-        cout << "Model's response: " << response << endl;
-        getline (cin, input);
-    }
+//     while (input != "exit"){
+//         string response = ai.generateResponse(input);
+//         cout << "Model's response: " << response << endl;
+//         getline (cin, input);
+//     }
 
-    ai.printChatHistory();
+//     ai.printChatHistory();
    
 
-	return 0;
+// 	return 0;
 
-}
+// }
 
 
 

@@ -1,0 +1,12 @@
+{
+    "messages": [
+        {"role": "user", "content": "What is the best material for building a lightsaber?"},
+        {"role": "user", "content": "What metal would survive re-entry from space and why?"},
+        {"role": "user", "content": "Can you explain why my car makes a noise when I turn left?"},
+        {"role": "user", "content": "What material is best for fantasy armor?"},
+        {"role": "user", "content": "How do I fix a broken phone screen at home?"},
+        {"role": "user", "content": "What is the best diet for improving bone strength?"},
+        {"role": "user", "content": "Write a poem about steel."}
+    ]
+}
+

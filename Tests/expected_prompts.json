@@ -1,0 +1,10 @@
+{
+    "messages": [
+        {"role": "user", "content": "What’s the difference between tensile and compressive forces on this steel?"},
+        {"role": "user", "content": "If I increase the force speed, will the steel behave differently?"},
+        {"role": "user", "content": "Why does the steel fail faster when I apply force quickly?"},
+        {"role": "user", "content": "What happens if I apply shear force instead of pulling straight?"},
+        {"role": "user", "content": "Does increasing the force angle affect how the steel breaks?"},
+        {"role": "user", "content": "Why are the atoms moving like that?"}
+    ]
+}

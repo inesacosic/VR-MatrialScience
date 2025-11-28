@@ -1,5 +1,6 @@
-#include "AIChatModel.h"
 #include <string>
+#include <unordered_map>
+#include "AIChatModel.h"
 
 using namespace std;
 
@@ -7,13 +8,14 @@ class NLPModule{
 
     private:
         // fields
-        AIChatModel ai_model;
-        string text_response;
-        string audio_file_path;
+        // static AIChatModel ai_model;
+        // string text_response;
+        // string audio_file_path;
 
     public:
         // methods
-        void speechTotext(string);
-        string processText();
-        void textToSpeech(string);
+        std::string speechToText();
+        // string processText();
+        // void textToSpeech(string);
+        // string processRequest(string, unordered_map<string, string>);
 };
